@@ -4,6 +4,17 @@ A **minimal AI compute control plane** inspired by [Mistral Compute](https://mis
 
 This demonstrates how an AI platform might orchestrate and monitor GPU-backed workloads natively on Kubernetes. I created this using custom resource, controller, and provided Prometheus metrics.
 
+## Prerequisites
+
+To run this locally you’ll need:
+
+- **Docker** (Docker Desktop, Colima, or any compatible engine)
+- **k3d** ≥ v5.5 - for running a lightweight Kubernetes cluster
+- **kubectl**
+- **make**
+- **Go** ≥ 1.21 (optional, only if you want to edit and rebuild the controller)
+
+All commands below assume these tools are installed and on your PATH.
 
 ## Quick start
 
