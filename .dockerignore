@@ -1,0 +1,7 @@
+.git
+**/*.md
+docs/
+manifests/
+k3d.yaml
+README*
+*.log

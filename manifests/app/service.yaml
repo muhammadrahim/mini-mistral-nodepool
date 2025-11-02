@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: job-runner
+  namespace: app
+  labels:
+    app: job-runner
+    project: mini-mistral
+spec:
+  selector:
+    app: job-runner
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+  type: ClusterIP

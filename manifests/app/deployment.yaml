@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: job-runner
+  namespace: app
+  labels:
+    app: job-runner
+    project: mini-mistral
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: job-runner
+  template:
+    metadata:
+      labels:
+        app: job-runner
+        project: mini-mistral
+    spec:
+      serviceAccountName: job-runner
+      containers:
+        - name: job-runner
+          image: mini/job-runner:0.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 5

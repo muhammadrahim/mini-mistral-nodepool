@@ -1,0 +1,8 @@
+/out
+*.log
+*.exe
+*.o
+*.a
+*.so
+vendor/
+bin/

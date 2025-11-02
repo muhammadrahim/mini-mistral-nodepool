@@ -1,0 +1,23 @@
+# k3d.yaml (k3d v5.8.3)
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: mini-mistral
+image: rancher/k3s:v1.31.5-k3s1
+servers: 1
+agents: 2
+options:
+  k3s:
+    extraArgs:
+      # disable Traefik on the server
+      - arg: "--disable=traefik"
+        nodeFilters:
+          - server:*
+      # label agent:0 as our "GPU" node
+      - arg: "--kubelet-arg=node-labels=gpu=true"
+        nodeFilters:
+          - agent:0
+      # optionally label agent:1 as non-GPU (explicit)
+      - arg: "--kubelet-arg=node-labels=gpu=false"
+        nodeFilters:
+          - agent:1

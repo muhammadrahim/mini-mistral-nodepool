@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: job-runner
+  namespace: app
+  labels:
+    app: job-runner
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: job-runner
+  namespace: app
+  labels:
+    app: job-runner
+rules:
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    verbs: ["create", "get", "list", "watch"]
+  - apiGroups: ["ai.mini"]
+    resources: ["aibatches"]
+    verbs: ["get","list","watch","update","patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: job-runner
+  namespace: app
+  labels:
+    app: job-runner
+subjects:
+  - kind: ServiceAccount
+    name: job-runner
+    namespace: app
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: job-runner

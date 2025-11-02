@@ -1,0 +1,13 @@
+apiVersion: ai.mini/v1
+kind: AIBatch
+metadata:
+  name: mistral-test-batch
+  namespace: app
+spec:
+  tenant: team-analytics
+  modelHint: mistral-medium
+  workload: inference
+  gpuCount: 1
+  batchSize: 8
+  tokensTargetPerSec: 200
+  priorityClass: ai-high
