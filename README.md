@@ -1,31 +1,36 @@
 # 🧩 Mini Mistral Nodepool
 
 A **minimal AI compute control plane** inspired by [Mistral Compute](https://mistral.ai/compute/).  
-It demonstrates how an AI platform might orchestrate and monitor GPU-backed workloads natively on Kubernetes — using a custom resource, controller, and Prometheus metrics.
 
----
+This demonstrates how an AI platform might orchestrate and monitor GPU-backed workloads natively on Kubernetes. I created this using custom resource, controller, and provided Prometheus metrics.
+
 
 ## Quick start
 
-# 1. Clone the repo
+### 1. Clone the repo
+```
 git clone https://github.com/muhammadrahim/mini-mistral-nodepool
 cd mini-mistral-nodepool
+```
+### 2. Create a local k3d cluster
 
-# 2. Create a local k3d cluster
-make up
+`make up`
 
-# 3. Build and import controller image
+### 3. Build and import controller image
+```
 make build
 make import
+```
 
-# 4. Deploy manifests (CRD, RBAC, deployment, monitoring)
+### 4. Deploy manifests (CRD, RBAC, deployment, monitoring)
+```
 make roll
-
-# 5. Check everything is running
+```
+### 5. Check everything is running
+```
 kubectl -n app get pods
 kubectl -n app get aibatches
-
----
+```
 
 ## Concept
 
@@ -40,12 +45,10 @@ kubectl -n app get aibatches
 
 My intent was to mirror what the orchestration and observability layer might look like internally for Mistral Compute.
 
----
-
 ## Architecture
 
 ```mermaid
-flowchart LR
+graph LR
     A[AIBatch CR (ai.mini/v1)] -->|watch via informer| B[Controller]
     B -->|admission policy\n(tenant quota, priority)| C{Admit?}
     C -- Yes --> D[Job (batch/v1)]
@@ -56,9 +59,7 @@ flowchart LR
     H --> I[Grafana]
 ```
 
-See more docs in `/docs` file.
-
----
+See more in `/docs` file.
 
 ## Tech
 

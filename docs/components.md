@@ -1,4 +1,5 @@
 ```mermaid
+graph LR
 classDiagram
     class AIBatch {
       +tenant: string

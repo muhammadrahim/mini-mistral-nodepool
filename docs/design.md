@@ -1,7 +1,7 @@
 # Mini Mistral Nodepool — Overview
 
 ```mermaid
-flowchart LR
+graph LR
     A[AIBatch CR (ai.mini/v1)] -->|watch via informer| B[Controller]
     B -->|admission policy\n(tenant quota, priority)| C{Admit?}
     C -- Yes --> D[Job (batch/v1)]
